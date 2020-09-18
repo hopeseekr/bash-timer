@@ -2,6 +2,8 @@
 
 Shows a human-readable execution time for every command run in bash.
 
+You might also find my [**Amazing Linux, PHP, and Git Aliases**](https://gist.github.com/hopeseekr/fb85b7a179e3b9c97212925a2bd8400b) quite useful as well.
+
 ## Installation
 
 ### Use the Installer
