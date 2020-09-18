@@ -1,0 +1,53 @@
+#!/bin/bash
+
+if [ ! -f ~/.bash-timer.sh ]; then
+  # Pull down our file from GitHub and write it to our home directory as a hidden file.
+  curl https://raw.githubusercontent.com/hopeseekr/bash-timer/v1.0.0/bash-timer.sh -o $HOME/.bash-timer.sh
+
+  if [ $(builtin type -P "sha256sum" 2>&1) ]; then
+    echo "c2e66332be7fe055d684c47a8f68b56926f7b03703f9e0c0aca95dbe310ec7c2  $HOME/.bash-timer.sh" | sha256sum -c -
+    if [ $? -ne 0 ]; then
+      rm -v ~/.bash-timer.sh
+      echo ERROR!! Invalid shasum for .bash-timer.sh !!
+      echo ERROR!! It has been deleted. Please grab from https://github.com/hopeseekr/bash-timer/
+      exit 1
+    fi
+  fi
+fi
+
+if [ ! -f ~/.bash-preexec.sh ]; then
+  curl https://raw.githubusercontent.com/hopeseekr/bash-timer/v1.0.0/assets/bash-preexec.sh -o $HOME/.bash-preexec.sh
+
+  if [ $(builtin type -P "sha256sum" 2>&1) ]; then
+    echo "04947faeb7f735d37cce12d820a1766ce0eb8288b64ee119e3ca1b00c4ed69eb  $HOME/.bash-preexec.sh" | sha256sum -c -
+    if [ $? -ne 0 ]; then
+      rm -v ~/.bash-preexec.sh
+      echo ERROR!! Invalid shasum for .bash-preexec.sh !!
+      echo ERROR!! It has been deleted. Please grab from https://github.com/hopeseekr/bash-timer/
+      exit 2
+    fi
+  fi
+fi
+
+if [ ! -f "${HOME}/.bashrc" ]; then
+    echo "ERROR: Could not find ~/.bashrc. You need to do a manual installation."
+    echo "See https://github.com/hopeseekr/bash-timer"
+    exit 3
+fi
+
+# Heredoc concatenation: https://stackoverflow.com/a/2954835/430062
+cat << EOF >> "${HOME}/.bashrc"
+# Bash Timer
+# See https://github.com/hopeseekr/bash-timer
+[[ -f ~/.bash-timer.sh ]] && source ~/.bash-timer.sh
+
+# See https://github.com/rcaloras/bash-preexec
+# **WARNING:** This must be the last line of your .bashrc.
+# Source our file at the end of our bash profile (e.g. ~/.bashrc, ~/.profile, or ~/.bash_profile)
+[[ -f ~/.bash-preexec.sh ]] && source ~/.bash-preexec.sh
+EOF
+
+echo "Install succeeded!"
+echo
+echo "Now run"
+echo "       source ~/.bashrc"
