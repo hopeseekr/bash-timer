@@ -4,6 +4,13 @@ Shows a human-readable execution time for every command run in bash.
 
 You might also find my [**Amazing Linux, PHP, and Git Aliases**](https://gist.github.com/hopeseekr/fb85b7a179e3b9c97212925a2bd8400b) quite useful as well.
 
+The time will show up in the bottom left, immediately left of your `$PS1`.
+
+![bash-timer image](https://user-images.githubusercontent.com/1125541/93687425-7c392100-fa83-11ea-9d36-cacbe03cc725.png)
+```
+2 days 05:02:11.33 # A very long process
+```
+
 ## Installation
 
 ### Use the Installer
