@@ -5,7 +5,7 @@ if [ ! -f ~/.bash-timer.sh ]; then
   curl https://raw.githubusercontent.com/hopeseekr/bash-timer/v1.0.0/bash-timer.sh -o $HOME/.bash-timer.sh
 
   if [ $(builtin type -P "sha256sum" 2>&1) ]; then
-    echo "c2e66332be7fe055d684c47a8f68b56926f7b03703f9e0c0aca95dbe310ec7c2  $HOME/.bash-timer.sh" | sha256sum -c -
+    echo "b8b86b96a8b144bcbfe9c567d606bc34a798cad34b0e8c8b98995f8a6d144c73  $HOME/.bash-timer.sh" | sha256sum -c -
     if [ $? -ne 0 ]; then
       rm -v ~/.bash-timer.sh
       echo ERROR!! Invalid shasum for .bash-timer.sh !!
