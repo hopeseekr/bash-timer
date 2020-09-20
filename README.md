@@ -16,7 +16,7 @@ The time will show up in the bottom left, immediately left of your `$PS1`.
 ### Use the Installer
 
 ```bash
-curl https://raw.githubusercontent.com/hopeseekr/bash-timer/v1.0.0/install | bash
+curl https://raw.githubusercontent.com/hopeseekr/bash-timer/v1.0/install | bash
 ```
 
 ### Manual
@@ -24,10 +24,10 @@ curl https://raw.githubusercontent.com/hopeseekr/bash-timer/v1.0.0/install | bas
 1. Download the files:
 
 ```bash
-curl https://raw.githubusercontent.com/hopeseekr/bash-timer/v1.0.0/bash-timer.sh -o $HOME/.bash-timer.sh
-echo "c2e66332be7fe055d684c47a8f68b56926f7b03703f9e0c0aca95dbe310ec7c3  $HOME/.bash-timer.sh" | sha256sum -c -
+curl https://raw.githubusercontent.com/hopeseekr/bash-timer/v1.0/bash-timer.sh -o $HOME/.bash-timer.sh
+echo "b8b86b96a8b144bcbfe9c567d606bc34a798cad34b0e8c8b98995f8a6d144c73  $HOME/.bash-timer.sh" | sha256sum -c -
 
-curl https://raw.githubusercontent.com/bash-timer/bash-timer/v1.0.0/assets/bash-preexec.sh -o $HOME/.bash-preexec.sh
+curl https://raw.githubusercontent.com/bash-timer/bash-timer/v1.0/assets/bash-preexec.sh -o $HOME/.bash-preexec.sh
 echo "04947faeb7f735d37cce12d820a1766ce0eb8288b64ee119e3ca1b00c4ed69ebce  $HOME/.bash-preexec.sh" | sha256sum -c -
 ```
 

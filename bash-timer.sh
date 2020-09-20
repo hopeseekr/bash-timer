@@ -5,7 +5,7 @@
 ##   GPG Fingerprint: 4BF8 2613 1C34 87AC D28F  2AD8 EB24 A91D D612 5690
 ##   https://stackoverflow.com/users/story/430062
 ##
-## Based off of the work of 
+## Based off of the work of
 ##  * https://jakemccrary.com/blog/2020/04/21/using-bash-preexec-for-monitoring-the-runtime-of-your-last-command/
 ##
 ## This file is licensed under the Apache v2.0 License.
@@ -47,29 +47,55 @@ human_time()
   fi
 
   echo $s
-}  
+}
 
 preexec() {
+  # Thanks to /u/OneTurnMore
+  # https://www.reddit.com/r/bash/comments/ivz276/tired_of_typing_time_all_the_time_try_bashtimer/g5wui2l/
+  if [ ! -z "$EPOCHREALTIME" ]; then
+    begin_s=${EPOCHREALTIME%.*}
+    begin_ns=${EPOCHREALTIME#*.}
+  else
     read begin_s begin_ns <<< $(date +"%s %N")
-    begin_ns="${begin_ns##+(0)}"
-    timer_show="0"
+  fi
+  begin_ns="${begin_ns##+(0)}"
+  timer_show="0"
 }
 
 precmd() {
   if [ ! -z "$begin_ns" ]; then
+    local s
+    local ms
     local end_s
     local end_ns
-    read end_s end_ns <<< $(date +"%s %N")
-    end_ns="${end_ns##+(0)}"
 
-    local s=$((end_s - begin_s))
-    local ms
-    if [ "$end_ns" -ge "$begin_ns" ]
-    then
-      ms=$(((end_ns - begin_ns) / 1000000))
+    # Thanks to /u/OneTurnMore
+    # https://www.reddit.com/r/bash/comments/ivz276/tired_of_typing_time_all_the_time_try_bashtimer/g5wui2l/
+    if [ ! -z "$EPOCHREALTIME" ]; then
+      end_s=${EPOCHREALTIME%.*}
+      end_ns=${EPOCHREALTIME#*.}
+      end_ns="${end_ns##+(0)}"
+
+      s=$((end_s - begin_s))
+      if [ "$end_ns" -ge "$begin_ns" ]; then
+        ms=$(((1000 + end_ns - begin_ns) / 100))
+      else
+        s=$((s - 1))
+        ms=$(((1000 + end_ns - begin_ns) / 100))
+      fi
     else
-      s=$((s - 1))
-      ms=$(((1000000000 + end_ns - begin_ns) / 1000000))
+      # For Bash < v5.0
+      read end_s end_ns <<< $(date +"%s %N")
+      end_ns="${end_ns##+(0)}"
+
+      s=$((end_s - begin_s))
+      if [ "$end_ns" -ge "$begin_ns" ]
+      then
+        ms=$(((end_ns - begin_ns) / 1000000))
+      else
+        s=$((s - 1))
+        ms=$(((1000000000 + end_ns - begin_ns) / 1000000))
+      fi
     fi
 
     if (($s > 60)); then
