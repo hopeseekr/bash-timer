@@ -1,0 +1,4 @@
+language: bash
+
+script:
+  - curl https://raw.githubusercontent.com/hopeseekr/bash-timer/v1.0/install | bash
