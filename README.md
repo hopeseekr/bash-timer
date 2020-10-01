@@ -1,4 +1,4 @@
-# Bash Timer
+## Bash Timer
 
 [![Build Status](https://travis-ci.com/hopeseekr/bash-timer.svg?branch=master)](https://travis-ci.com/hopeseekr/bash-timer)
 
