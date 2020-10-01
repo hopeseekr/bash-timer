@@ -55,10 +55,10 @@ preexec() {
   if [ ! -z "$EPOCHREALTIME" ]; then
     begin_s=${EPOCHREALTIME%.*}
     begin_ns=${EPOCHREALTIME#*.}
+    begin_ns="${begin_ns#0}"
   else
     read begin_s begin_ns <<< $(date +"%s %N")
   fi
-  begin_ns="${begin_ns##+(0)}"
   timer_show="0"
 }
 
@@ -74,14 +74,13 @@ precmd() {
     if [ ! -z "$EPOCHREALTIME" ]; then
       end_s=${EPOCHREALTIME%.*}
       end_ns=${EPOCHREALTIME#*.}
-      end_ns="${end_ns##+(0)}"
+      end_ns="${end_ns#0}"
 
       s=$((end_s - begin_s))
       if [ "$end_ns" -ge "$begin_ns" ]; then
-        ms=$(((1000 + end_ns - begin_ns) / 100))
+        ms=$(printf "%03d" $((((1000000 + end_ns) - (1000000 + begin_ns)) / 1000)))
       else
-        s=$((s - 1))
-        ms=$(((1000 + end_ns - begin_ns) / 100))
+        ms=$(printf "%03d" $((((1000000 + end_ns) - (1000000 + begin_ns)) / -1000)))
       fi
     else
       # For Bash < v5.0
@@ -111,4 +110,3 @@ precmd() {
     PS1="${BOLD}$timer_show${RESET} $PS1orig"
   fi
 }
-
