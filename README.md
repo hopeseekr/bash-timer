@@ -27,7 +27,7 @@ curl https://raw.githubusercontent.com/hopeseekr/bash-timer/v1.0/install | bash
 
 ```bash
 curl https://raw.githubusercontent.com/hopeseekr/bash-timer/v1.0/bash-timer.sh -o $HOME/.bash-timer.sh
-echo "b8b86b96a8b144bcbfe9c567d606bc34a798cad34b0e8c8b98995f8a6d144c73  $HOME/.bash-timer.sh" | sha256sum -c -
+echo "6dcd684666ec515a976837f3284f3efb7124c0bac1763d752f20d8faf90ac946  $HOME/.bash-timer.sh" | sha256sum -c -
 
 curl https://raw.githubusercontent.com/bash-timer/bash-timer/v1.0/assets/bash-preexec.sh -o $HOME/.bash-preexec.sh
 echo "04947faeb7f735d37cce12d820a1766ce0eb8288b64ee119e3ca1b00c4ed69ebce  $HOME/.bash-preexec.sh" | sha256sum -c -
