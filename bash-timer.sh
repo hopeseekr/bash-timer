@@ -49,7 +49,7 @@ human_time()
   echo $s
 }
 
-preexec() {
+bashtimer_preexec() {
   # Thanks to /u/OneTurnMore
   # https://www.reddit.com/r/bash/comments/ivz276/tired_of_typing_time_all_the_time_try_bashtimer/g5wui2l/
   if [ ! -z "$EPOCHREALTIME" ]; then
@@ -62,7 +62,7 @@ preexec() {
   timer_show="0"
 }
 
-precmd() {
+bashtimer_precmd() {
   if [ ! -z "$begin_ns" ]; then
     local s
     local ms
@@ -110,3 +110,8 @@ precmd() {
     PS1="${BOLD}$timer_show${RESET} $PS1orig"
   fi
 }
+
+## Using `bash-preexec` functions arrays makes this script compatible with other scripts that use `bash-preexec`.
+## It avoids overwriting variables `preexec` and `precmd`. 
+preexec_functions+=(bashtimer_preexec)
+precmd_functions+=(bashtimer_precmd)
